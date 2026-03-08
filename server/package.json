@@ -1,0 +1,29 @@
+{
+  "name": "sql_backend_service",
+  "version": "1.0.0",
+  "description": "Backend service for CipherSQLStudio SQL practice platform",
+  "keywords": [
+    "sql",
+    "studio",
+    "backend"
+  ],
+  "author": "Naman Singh Rathaur",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.2.4",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
