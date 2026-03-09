@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package.json",
   "name": "sql_backend_service",
   "version": "1.0.0",
   "description": "Backend service for CipherSQLStudio SQL practice platform",

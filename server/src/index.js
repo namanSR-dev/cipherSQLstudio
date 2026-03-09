@@ -7,6 +7,9 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 
+import { connectPostgres } from "./config/postgres.js";
+import { connectMongoDB } from "./config/mongodb.js"
+
 // express app instance
 const app = express();
 
@@ -22,7 +25,23 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-// application start listening to specified port - simply say "running of given port"
-app.listen(PORT, () => {
-  console.log(`Server running on Port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    console.log("Connecting to databases...");
+    
+    // We run these in parallel to save time on startup
+    await Promise.all([
+      connectMongoDB(),
+      connectPostgres()
+    ]);
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server due to DB connection issues:", error);
+    process.exit(1);
+  }
+};
+
+startServer()
