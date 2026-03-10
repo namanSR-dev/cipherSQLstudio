@@ -1,5 +1,5 @@
 import { pgPool } from "../config/postgres.js";
-import { getAssignmentDetail } from "../repositories/assignment.repository.js";
+import { getAssignmentDetail } from "../repositories/assignments.repository.js";
 
 /**
  * [ SQL Sandbox ]:
