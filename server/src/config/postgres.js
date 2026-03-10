@@ -10,10 +10,6 @@ const { Pool } = pkg;
 //  - since conecting to DB is expensive.
 export const pgPool = new Pool({
   connectionString: process.env.POSTGRES_URL,
-  // encrypt data during trnsit
-  ssl: {
-    rejectUnauthorized: false,
-  },
 });
 
 // connection check function
