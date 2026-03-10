@@ -10,6 +10,7 @@ import "dotenv/config";
 import { connectPostgres } from "./config/postgres.js";
 import { connectMongoDB } from "./config/mongodb.js";
 import assignmentsRouter from "./routes/assignments.routes.js";
+import queryRoutes from "./routes/query.routes.js"
 
 // express app instance
 const app = express();
@@ -19,6 +20,7 @@ const app = express();
 app.use(cors());  // CROSS ORIGIN RESOURCE SHARING: since frontend is running at differen "origin" (port here) than backend 
 app.use(express.json()); // listen to the streamed chunks and convert them into singal JSON object.
 app.use("/assignments", assignmentsRouter); // mounting the modular ROUTER of "/assignments" routes.
+app.use("/execute", queryRoutes)
 
 // Route Handler - with get method
 app.get("/", (req, res) => {
