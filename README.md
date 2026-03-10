@@ -64,7 +64,7 @@ cipher_sql_engine/
 ### 2. Clone and enter project
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/namanSR-dev/cipherSQLstudio.git
 cd cipher_sql_engine
 ```
 
@@ -172,7 +172,7 @@ POST /hints
 
 ## Author
 
-Naman Singh Rathaur
-email: namansingh99694@gmail.com
+##### Naman Singh Rathaur
+##### email: namansingh99694@gmail.com
 
 ---
