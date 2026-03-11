@@ -1,8 +1,8 @@
-﻿# CipherSQLStudio
+# CipherSQLStudio
 
 A full-stack SQL practice platform where learners select assignments, run SQL against sandboxed data, and request AI hints without receiving direct answers.
 
-## Why This Project Is Strong
+## My Project Strong-Holds
 
 - Real learning workflow: assignment selection -> SQL execution -> feedback loop.
 - Safe SQL runtime: user queries execute inside transaction-scoped temporary tables, then roll back.
@@ -50,6 +50,35 @@ cipher_sql_engine/
 | SQL execution       | PostgreSQL (`pg`)                | Reliable SQL engine and strong transactional behavior                        |
 | AI hints            | Gemini (`@google/generative-ai`) | Low-latency hint generation with structured mentoring output                 |
 | Additional DB layer | MongoDB (`mongoose`)             | Prepared for persistence extensions (attempt logs, user progress, analytics) |
+
+
+## Architecture & Data Flow
+
+CipherSQLStudio is built on a modular three-tier architecture that separates user interaction, business logic, and secure database execution.
+
+![Data Flow Diagram](./docs/CipherSQLstudio_data-flow-diagram.jpg)
+
+### 1. Assignment Data Flow
+This flow handles the initial discovery phase when a user explores the platform.
+* **Trigger:** User opens the assignments page in the Browser.
+* **Process:** The Next.js frontend sends a request to the `Express API Service`.
+* **Data Retrieval:** The `Assignments Route Handler` fetches the structured assignment metadata from the **JSON Repository** (JSON-based storage for quick read access).
+* **Result:** A list of available SQL challenges is returned to the UI for selection.
+
+### 2. Query Execution Flow (The Sandbox)
+This is the core engine where user-written SQL is safely validated and executed.
+* **Input:** The user writes a SQL query in the **Monaco Editor** and submits it.
+* **Middleware:** The request hits the `Express Backend Service`. The **Query Controller** validates the request body and passes the raw SQL to the **Query Engine**.
+* **Execution:** To prevent permanent data mutation, the engine manages a **Transaction Manager**. It creates **Temporary Tables** within a session, executes the user's SQL, and then rolls back the transaction.
+* **Output:** The execution results (or errors) are sent back and rendered in the **Result Table UI**.
+
+### 3. AI Hint Flow
+Instead of providing direct answers, this flow focuses on guided learning using the Gemini API.
+* **Trigger:** When a user is stuck, they click "Get Hints" in the UI.
+* **Logic:** The frontend sends the current `query` and `assignmentId` to the **Hint Controller**.
+* **Processing:** The internal **Hint Service** aggregates the user's attempt and the assignment context. It communicates with the **Gemini API (External)** to generate a conceptual guide.
+* **Result:** The AI response is processed and delivered as **Formatted Hints** in the AI Hint UI, guiding the user toward the solution without revealing the code.
+
 
 ## End-To-End Setup
 
